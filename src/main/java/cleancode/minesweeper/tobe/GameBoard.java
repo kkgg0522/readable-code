@@ -17,7 +17,7 @@ public class GameBoard {
     public GameBoard(GameLevel gameLevel) {
         int rowSize = gameLevel.getRowSize();
         int colSize = gameLevel.getColSIze();
-        board = new Cell[colSize][rowSize];
+        board = new Cell[rowSize][colSize];
 
         landMineCount = gameLevel.getLandMineCount();
     }
