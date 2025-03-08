@@ -22,6 +22,11 @@ public class GameBoard {
         landMineCount = gameLevel.getLandMineCount();
     }
 
+    public CellSnapshot getSnapshot(CellPosition cellPosition) {
+        Cell cell = findCell(cellPosition);
+        return cell.getSnapshot();
+    }
+
     public void initializeGame() {
         CellPositions cellPositions = CellPositions.from(board);
 
@@ -37,27 +42,30 @@ public class GameBoard {
 
     private void initializeEmptyCells(CellPositions cellPositions) {
         List<CellPosition> allPositions = cellPositions.getPositions();
-        updateCellsAt(allPositions, new EmptyCell());
+        for (CellPosition position : allPositions) {
+            updateCellAt(position, new EmptyCell());
+        }
     }
 
     private void initializeLandMineCells(List<CellPosition> landMinePositions) {
-        updateCellsAt(landMinePositions, new LandMineCell());
+        for (CellPosition landMinePosition : landMinePositions) {
+            updateCellAt(landMinePosition, new LandMineCell());
+        }
     }
+
+
 
     private void initializeNumberCells(List<CellPosition> numberPositionCandidates) {
         for (CellPosition candidatePosition : numberPositionCandidates) {
             int count = countNearbyLandMines(candidatePosition);
             if(count != 0){
-                Cell cell = new NumberCell(count);
-                board[candidatePosition.getRowIndex()][candidatePosition.getColIndex()] = cell;
+                updateCellAt(candidatePosition, new NumberCell(count));
             }
         }
     }
 
-    private void updateCellsAt(List<CellPosition> allPositions, Cell cell) {
-        for (CellPosition position : allPositions) {
-            board[position.getRowIndex()][position.getColIndex()] = cell;
-        }
+    private void updateCellAt(CellPosition position, Cell cell) {
+        board[position.getRowIndex()][position.getColIndex()] = cell;
     }
 
     public int getRowSize(){
@@ -68,10 +76,6 @@ public class GameBoard {
         return board[0].length;
     }
 
-    public String getSign(CellPosition cellPosition) {
-        Cell cell = findCell(cellPosition);
-        return cell.getSign();
-    }
 
     public Cell findCell(CellPosition cellPosition) {
         return board[cellPosition.getRowIndex()][cellPosition.getColIndex()];
@@ -92,7 +96,7 @@ public class GameBoard {
     public boolean isAllCellChecked() {
         Cells cells = Cells.form(board);
         return cells.isAllChecked();
-        
+
         /*
         //        return Arrays.stream(BOARD) //Stream<String[]>
 //                .flatMap(Arrays::stream) //Stream<String>
@@ -189,6 +193,5 @@ public class GameBoard {
         Cell cell = findCell(cellPosition);
         return cell.isOpened();
     }
-
 
 }
