@@ -9,7 +9,7 @@ import cleancode.minesweeper.tobe.minesweeper.io.BoardIndexConverter;
 import cleancode.minesweeper.tobe.minesweeper.io.InputHandler;
 import cleancode.minesweeper.tobe.minesweeper.io.OutputHandler;
 import cleancode.minesweeper.tobe.minesweeper.board.position.CellPosition;
-import cleancode.minesweeper.tobe.minesweeper.user.UserAction;
+import cleancode.minesweeper.tobe.user.UserAction;
 
 public class Minesweeper implements GameInitializable, GameRunnable {
 

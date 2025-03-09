@@ -1,4 +1,4 @@
-package cleancode.minesweeper.tobe.minesweeper.user;
+package cleancode.minesweeper.tobe.user;
 
 public enum UserAction {
     OPEN("셀 열기"),
