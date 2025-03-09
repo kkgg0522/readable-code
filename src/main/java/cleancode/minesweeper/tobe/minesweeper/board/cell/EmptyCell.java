@@ -40,7 +40,7 @@ public class EmptyCell implements Cell {
 
     @Override
     public boolean isOpened() {
-        return cellState.isChecked();
+        return cellState.isOpened();
     }
 
     @Override
