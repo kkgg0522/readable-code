@@ -1,4 +1,4 @@
-package cleancode.studycafe.mine.tobe;
+package cleancode.studycafe.mine;
 
 public class StudyCafeApplication {
 

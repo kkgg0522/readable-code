@@ -15,7 +15,6 @@ public class Minesweeper implements GameInitializable, GameRunnable {
 
 
     private final GameBoard gameBoard;
-    private final BoardIndexConverter boardIndexConverter = new BoardIndexConverter();
 
     private final InputHandler inputHandler;
     private final OutputHandler outputHandler;

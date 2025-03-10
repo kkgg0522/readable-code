@@ -1,4 +1,4 @@
-package cleancode.studycafe.mine.tobe.exception;
+package cleancode.studycafe.mine.exception;
 
 public class AppException extends RuntimeException {
 

@@ -1,8 +1,8 @@
-package cleancode.studycafe.mine.tobe.io;
+package cleancode.studycafe.mine.io;
 
-import cleancode.studycafe.mine.tobe.model.StudyCafeLockerPass;
-import cleancode.studycafe.mine.tobe.model.StudyCafePass;
-import cleancode.studycafe.mine.tobe.model.StudyCafePassType;
+import cleancode.studycafe.mine.model.StudyCafeLockerPass;
+import cleancode.studycafe.mine.model.StudyCafeTicketPass;
+import cleancode.studycafe.mine.model.StudyCafePassType;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,10 +12,10 @@ import java.util.List;
 
 public class StudyCafeFileHandler {
 
-    public List<StudyCafePass> readStudyCafePasses() {
+    public static List<StudyCafeTicketPass> readStudyCafePasses() {
         try {
             List<String> lines = Files.readAllLines(Paths.get("src/main/resources/cleancode/studycafe/pass-list.csv"));
-            List<StudyCafePass> studyCafePasses = new ArrayList<>();
+            List<StudyCafeTicketPass> studyCafePasses = new ArrayList<>();
             for (String line : lines) {
                 String[] values = line.split(",");
                 StudyCafePassType studyCafePassType = StudyCafePassType.valueOf(values[0]);
@@ -23,7 +23,7 @@ public class StudyCafeFileHandler {
                 int price = Integer.parseInt(values[2]);
                 double discountRate = Double.parseDouble(values[3]);
 
-                StudyCafePass studyCafePass = StudyCafePass.of(studyCafePassType, duration, price, discountRate);
+                StudyCafeTicketPass studyCafePass = StudyCafeTicketPass.of(studyCafePassType, duration, price, discountRate);
                 studyCafePasses.add(studyCafePass);
             }
 
@@ -33,13 +33,15 @@ public class StudyCafeFileHandler {
         }
     }
 
-    public List<StudyCafeLockerPass> readLockerPasses() {
+
+    public static List<StudyCafeLockerPass> readLockerPasses() {
         try {
             List<String> lines = Files.readAllLines(Paths.get("src/main/resources/cleancode/studycafe/locker.csv"));
             List<StudyCafeLockerPass> lockerPasses = new ArrayList<>();
             for (String line : lines) {
                 String[] values = line.split(",");
                 StudyCafePassType studyCafePassType = StudyCafePassType.valueOf(values[0]);
+
                 int duration = Integer.parseInt(values[1]);
                 int price = Integer.parseInt(values[2]);
 

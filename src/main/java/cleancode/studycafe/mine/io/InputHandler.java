@@ -1,8 +1,9 @@
-package cleancode.studycafe.mine.tobe.io;
+package cleancode.studycafe.mine.io;
 
-import cleancode.studycafe.mine.tobe.exception.AppException;
-import cleancode.studycafe.mine.tobe.model.StudyCafePass;
-import cleancode.studycafe.mine.tobe.model.StudyCafePassType;
+import cleancode.studycafe.mine.exception.AppException;
+import cleancode.studycafe.mine.model.StudyCafeTicketPass;
+import cleancode.studycafe.mine.model.StudyCafePassType;
+import cleancode.studycafe.mine.model.StudyCafeTicketPasses;
 
 import java.util.List;
 import java.util.Scanner;
@@ -23,13 +24,13 @@ public class InputHandler {
         if ("3".equals(userInput)) {
             return StudyCafePassType.FIXED;
         }
-        throw new AppException("잘못된 입력입니다.");
+
+        return StudyCafePassType.NOT_MATCH;
     }
 
-    public StudyCafePass getSelectPass(List<StudyCafePass> passes) {
+    public int getSelectPassIndexFromUser() {
         String userInput = SCANNER.nextLine();
-        int selectedIndex = Integer.parseInt(userInput) - 1;
-        return passes.get(selectedIndex);
+        return Integer.parseInt(userInput) - 1;
     }
 
     public boolean getLockerSelection() {
