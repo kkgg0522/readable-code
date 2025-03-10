@@ -1,12 +1,11 @@
 package cleancode.studycafe.mine.model;
 
-public class StudyCafeTicketPass {
+public class StudyCafeTicketPass extends StudyCafePass{
 
-    private final StudyCafePass studyCafePass;
     private final double discountRate;
 
     private StudyCafeTicketPass(StudyCafePassType passType, int duration, int price, double discountRate) {
-        this.studyCafePass = StudyCafePass.of(passType, duration,  price);
+        super(passType, duration, price);
         this.discountRate = discountRate;
     }
 
@@ -14,28 +13,26 @@ public class StudyCafeTicketPass {
         return new StudyCafeTicketPass(passType, duration, price, discountRate);
     }
 
-    public StudyCafePassType getPassType() {
-        return studyCafePass.getPassType();
+    public int getDiscountPrice() {
+        return super.getDiscountPrice(discountRate);
     }
 
-    public int getDuration() {
-        return studyCafePass.getDuration();
-    }
 
-    public int getPrice() {
-        return studyCafePass.getPrice();
-    }
-
-    public double getDiscountRate() {
-        return discountRate;
-    }
-
-    public boolean isEqualsPassType(StudyCafePassType passType){
-        return this.getPassType() == passType;
-    }
-
+    @Override
     public String display() {
-        return studyCafePass.display();
+        String baseDisplay = super.display();
+        return String.format("%s (할인율: %.2f%%)", baseDisplay, discountRate * 100);
     }
 
+
+
+    public int getTotalPrice(StudyCafePass lockerPass) {
+        int totalPrice = getDiscountPrice();
+
+        if(lockerPass != null){
+            totalPrice = lockerPass.addPrice(totalPrice);
+        }
+
+        return totalPrice;
+    }
 }

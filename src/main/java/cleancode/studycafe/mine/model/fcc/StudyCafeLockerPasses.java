@@ -1,4 +1,8 @@
-package cleancode.studycafe.mine.model;
+package cleancode.studycafe.mine.model.fcc;
+
+import cleancode.studycafe.mine.model.StudyCafeLockerPass;
+import cleancode.studycafe.mine.model.StudyCafePassType;
+import cleancode.studycafe.mine.model.StudyCafeTicketPass;
 
 import java.util.List;
 
@@ -13,15 +17,14 @@ public class StudyCafeLockerPasses {
         return new StudyCafeLockerPasses(lockerPasses);
     }
 
-    public StudyCafeLockerPass find(StudyCafeTicketPass cafePass){
-        if(cafePass.getPassType() != StudyCafePassType.FIXED) {
+    public StudyCafeLockerPass find(StudyCafeTicketPass ticketPass){
+        if(ticketPass.getPassType() != StudyCafePassType.FIXED) {
             return null;
         }
 
         return lockerPasses.stream()
                 .filter(option ->
-                        option.getPassType() == cafePass.getPassType()
-                                && option.getDuration() == cafePass.getDuration()
+                        option.isEqualsPassTypeAndDuration(ticketPass)
                 )
                 .findFirst()
                 .orElse(null);

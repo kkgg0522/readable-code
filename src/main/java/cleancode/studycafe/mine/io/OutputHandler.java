@@ -2,27 +2,27 @@ package cleancode.studycafe.mine.io;
 
 import cleancode.studycafe.mine.model.StudyCafeLockerPass;
 import cleancode.studycafe.mine.model.StudyCafeTicketPass;
-import cleancode.studycafe.mine.model.StudyCafeTicketPasses;
-
-import java.util.List;
+import cleancode.studycafe.mine.model.fcc.StudyCafeTicketPasses;
 
 public class OutputHandler {
 
 
+    public static final String STUDY_CAFE_INFORMATION = "*** 프리미엄 스터디카페 ***";
+    public static final String INVALID_INPUT = "잘못된 입력 입니다.";
 
     public void showWelcomeMessage() {
-        System.out.println("*** 프리미엄 스터디카페 ***");
+        System.out.println(STUDY_CAFE_INFORMATION);
         showAnnouncement();
         askPassTypeSelection();
     }
 
     public void showRetryMessage() {
-        System.out.println("잘못된 입력 입니다.");
+        System.out.println(INVALID_INPUT);
         askPassTypeSelection();
     }
 
     public void showRetryMessage(StudyCafeTicketPasses findTicketPasses) {
-        System.out.println("잘못된 입력 입니다.");
+        System.out.println(INVALID_INPUT);
         showPassListForSelection(findTicketPasses);
     }
 
@@ -65,13 +65,13 @@ public class OutputHandler {
             System.out.println("사물함: " + lockerPass.display());
         }
 
-        double discountRate = selectedPass.getDiscountRate();
-        int discountPrice = (int) (selectedPass.getPrice() * discountRate);
+        int discountPrice = selectedPass.getDiscountPrice();
         if (discountPrice > 0) {
             System.out.println("이벤트 할인 금액: " + discountPrice + "원");
         }
 
-        int totalPrice = selectedPass.getPrice() - discountPrice + (lockerPass != null ? lockerPass.getPrice() : 0);
+        int totalPrice = selectedPass.getTotalPrice(lockerPass);
+
         System.out.println("총 결제 금액: " + totalPrice + "원");
         System.out.println();
     }

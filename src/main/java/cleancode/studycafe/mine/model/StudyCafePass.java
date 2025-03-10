@@ -1,11 +1,13 @@
 package cleancode.studycafe.mine.model;
 
+import cleancode.studycafe.mine.io.DefaultPassDisplayStrategy;
+
 public class StudyCafePass {
     private final StudyCafePassType passType;
     private final int duration;
     private final int price;
 
-    private StudyCafePass(StudyCafePassType passType, int duration, int price) {
+    protected StudyCafePass(StudyCafePassType passType, int duration, int price) {
         this.passType = passType;
         this.duration = duration;
         this.price = price;
@@ -27,17 +29,29 @@ public class StudyCafePass {
         return price;
     }
 
+    protected int getDiscountPrice(double discountRate) {
+        return (int) (getPrice() * (1 - discountRate));
+    }
+
 
     public String display() {
-        if (passType == StudyCafePassType.HOURLY) {
-            return String.format("%s시간권 - %d원", duration, price);
-        }
-        if (passType == StudyCafePassType.WEEKLY) {
-            return String.format("%s주권 - %d원", duration, price);
-        }
-        if (passType == StudyCafePassType.FIXED) {
-            return String.format("%s주권 - %d원", duration, price);
-        }
-        return "";
+        return DefaultPassDisplayStrategy.getDisplayBypassType(this);
     }
+
+    public boolean isEqualsType(StudyCafePassType studyCafePassType) {
+        return this.getPassType() == studyCafePassType;
+    }
+
+    private boolean isEqualsDuration(int duration) {
+        return this.duration == duration;
+    }
+
+    protected int addPrice(int price) {
+        return this.price + price;
+    }
+
+    public boolean isEqualsPassTypeAndDuration(StudyCafePass studyCafePass) {
+        return isEqualsType(studyCafePass.getPassType()) && isEqualsDuration(studyCafePass.getDuration());
+    }
+
 }

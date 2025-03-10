@@ -1,4 +1,7 @@
-package cleancode.studycafe.mine.model;
+package cleancode.studycafe.mine.model.fcc;
+
+import cleancode.studycafe.mine.model.StudyCafePassType;
+import cleancode.studycafe.mine.model.StudyCafeTicketPass;
 
 import java.util.List;
 
@@ -15,7 +18,7 @@ public class StudyCafeTicketPasses {
 
     public StudyCafeTicketPasses find(StudyCafePassType studyCafePassType){
         return from(studyCafeTicketPasses.stream()
-                .filter(studyCafeTicketPass -> studyCafeTicketPass.isEqualsPassType(studyCafePassType))
+                .filter(studyCafeTicketPass -> studyCafeTicketPass.isEqualsType(studyCafePassType))
                 .toList());
     }
 

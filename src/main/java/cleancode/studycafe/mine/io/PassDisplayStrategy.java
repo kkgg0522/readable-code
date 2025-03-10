@@ -1,5 +1,9 @@
-package cleancode.studycafe.mine.model;
+package cleancode.studycafe.mine.io;
+
+import cleancode.studycafe.mine.model.StudyCafePass;
 
 public interface PassDisplayStrategy {
-        String display(int duration, int price);
+    String display(StudyCafePass studyCafePass);
+
+    boolean supports(StudyCafePass studyCafePass);
 }

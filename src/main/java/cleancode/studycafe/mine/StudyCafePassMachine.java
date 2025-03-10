@@ -5,13 +5,17 @@ import cleancode.studycafe.mine.io.InputHandler;
 import cleancode.studycafe.mine.io.OutputHandler;
 import cleancode.studycafe.mine.io.StudyCafeFileHandler;
 import cleancode.studycafe.mine.model.*;
+import cleancode.studycafe.mine.model.fcc.StudyCafeLockerPasses;
+import cleancode.studycafe.mine.model.fcc.StudyCafeTicketPasses;
+import cleancode.studycafe.mine.model.StudyCafePassType;
+import cleancode.studycafe.mine.model.StudyCafeTicketPass;
 
 public class StudyCafePassMachine {
 
     private final InputHandler inputHandler = new InputHandler();
     private final OutputHandler outputHandler = new OutputHandler();
-    private final StudyCafeLockerPasses studyCafeLockerPasses = StudyCafeLockerPasses.from(StudyCafeFileHandler.readLockerPasses());
-    private final StudyCafeTicketPasses studyCafeTicketPasses = StudyCafeTicketPasses.from(StudyCafeFileHandler.readStudyCafePasses());
+    private final StudyCafeTicketPasses studyCafeTicketPasses = StudyCafeFileHandler.readStudyCafePasses();
+    private final StudyCafeLockerPasses studyCafeLockerPasses = StudyCafeFileHandler.readLockerPasses();
 
 
     public void run() {
@@ -20,25 +24,19 @@ public class StudyCafePassMachine {
 
             StudyCafePassType studyCafePassType = getPassTypeSelectingUserAction();
 
-            StudyCafeTicketPass cafePass = getSelectedCafeTicketPass(studyCafePassType);
+            StudyCafeTicketPass selectedTicketPass = getSelectedCafeTicketPass(studyCafePassType);
+            StudyCafeLockerPass lockerPass = studyCafeLockerPasses.find(selectedTicketPass);
 
-            StudyCafeLockerPass lockerPass = studyCafeLockerPasses.find(cafePass);
+            if (lockerPass != null) {
+                outputHandler.askLockerPass(lockerPass);
+                boolean lockerSelection = inputHandler.getLockerSelection();
 
-            if(studyCafePassType == StudyCafePassType.FIXED){
-                boolean lockerSelection = false;
-                if (lockerPass != null) {
-                    outputHandler.askLockerPass(lockerPass);
-                    lockerSelection = inputHandler.getLockerSelection();
-                }
-
-                if (lockerSelection) {
-                    outputHandler.showPassOrderSummary(cafePass, lockerPass);
-                    return;
+                if (!lockerSelection) {
+                    lockerPass=null;
                 }
             }
 
-            outputHandler.showPassOrderSummary(cafePass, lockerPass);
-            
+            outputHandler.showPassOrderSummary(selectedTicketPass, lockerPass);
         } catch (AppException e) {
             outputHandler.showSimpleMessage(e.getMessage());
         } catch (Exception e) {
