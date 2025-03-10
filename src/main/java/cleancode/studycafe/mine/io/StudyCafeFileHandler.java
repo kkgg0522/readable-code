@@ -17,6 +17,7 @@ public class StudyCafeFileHandler {
     public static final String REGEX = ",";
     public static final String LOCKER_CSV_PATH = "src/main/resources/cleancode/studycafe/locker.csv";
     public static final String TICKET_CSV_PATH = "src/main/resources/cleancode/studycafe/pass-list.csv";
+    public static final String FILE_READ_FAILED = "파일을 읽는데 실패했습니다.";
 
     public static StudyCafeTicketPasses readStudyCafePasses() {
         try {
@@ -35,7 +36,7 @@ public class StudyCafeFileHandler {
 
             return StudyCafeTicketPasses.from(studyCafePasses);
         } catch (IOException e) {
-            throw new RuntimeException("파일을 읽는데 실패했습니다.", e);
+            throw new RuntimeException(FILE_READ_FAILED, e);
         }
     }
 
@@ -57,7 +58,7 @@ public class StudyCafeFileHandler {
 
             return StudyCafeLockerPasses.from(lockerPasses);
         } catch (IOException e) {
-            throw new RuntimeException("파일을 읽는데 실패했습니다.", e);
+            throw new RuntimeException(FILE_READ_FAILED, e);
         }
     }
 

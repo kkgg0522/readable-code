@@ -2,7 +2,7 @@ package cleancode.studycafe.mine.model;
 
 import cleancode.studycafe.mine.io.DefaultPassDisplayStrategy;
 
-public class StudyCafePass {
+public abstract class StudyCafePass {
     private final StudyCafePassType passType;
     private final int duration;
     private final int price;
@@ -25,13 +25,12 @@ public class StudyCafePass {
         return this.duration == duration;
     }
 
+    public boolean isEqualsPassTypeAndDuration(StudyCafePass studyCafePass) {
+        return isEqualsType(studyCafePass.getPassType()) && isEqualsDuration(studyCafePass.getDuration());
+    }
 
     public String display() {
         return DefaultPassDisplayStrategy.getDisplayBypassType(this);
-    }
-
-    public static StudyCafePass of(StudyCafePassType passType, int duration, int price) {
-        return new StudyCafePass(passType, duration, price);
     }
 
     public StudyCafePassType getPassType() {
@@ -49,15 +48,6 @@ public class StudyCafePass {
     protected int getDiscountPrice(double discountRate) {
         int price = getPrice();
         return (int) (price - (price * (1 - discountRate)));
-    }
-
-
-
-
-
-
-    public boolean isEqualsPassTypeAndDuration(StudyCafePass studyCafePass) {
-        return isEqualsType(studyCafePass.getPassType()) && isEqualsDuration(studyCafePass.getDuration());
     }
 
 }

@@ -13,18 +13,18 @@ public class StudyCafeLockerPasses {
         this.lockerPasses = lockerPasses;
     }
 
-    public static StudyCafeLockerPasses from(List<StudyCafeLockerPass> lockerPasses){
+    public static StudyCafeLockerPasses from(List<StudyCafeLockerPass> lockerPasses) {
         return new StudyCafeLockerPasses(lockerPasses);
     }
 
-    public StudyCafeLockerPass find(StudyCafeTicketPass ticketPass){
-        if(ticketPass.getPassType() != StudyCafePassType.FIXED) {
+    public StudyCafeLockerPass find(StudyCafeTicketPass ticketPass) {
+        if(ticketPass.containsLockerType()){
             return null;
         }
 
         return lockerPasses.stream()
-                .filter(option ->
-                        option.isEqualsPassTypeAndDuration(ticketPass)
+                .filter(lockerPass ->
+                        lockerPass.isEqualsPassTypeAndDuration(ticketPass)
                 )
                 .findFirst()
                 .orElse(null);

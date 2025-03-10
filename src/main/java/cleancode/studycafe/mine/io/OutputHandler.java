@@ -61,9 +61,7 @@ public class OutputHandler {
         System.out.println();
         System.out.println("이용 내역");
         System.out.println("이용권: " + selectedPass.display());
-        if (lockerPass != null) {
-            System.out.println("사물함: " + lockerPass.display());
-        }
+        System.out.println("사물함: " + lockerPass.display());
 
         int discountPrice = selectedPass.getDiscountPrice();
         if (discountPrice > 0) {
@@ -80,7 +78,6 @@ public class OutputHandler {
         System.out.println();
         System.out.println("이용 내역");
         System.out.println("이용권: " + selectedPass.display());
-
 
         int discountPrice = selectedPass.getDiscountPrice();
         if (discountPrice > 0) {
