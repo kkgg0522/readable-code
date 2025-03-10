@@ -17,22 +17,13 @@ public class StudyCafeTicketPass extends StudyCafePass{
         return super.getDiscountPrice(discountRate);
     }
 
-
-    @Override
-    public String display() {
-        String baseDisplay = super.display();
-        return String.format("%s (할인율: %.2f%%)", baseDisplay, discountRate * 100);
-    }
-
-
-
     public int getTotalPrice(StudyCafePass lockerPass) {
-        int totalPrice = getDiscountPrice();
-
+        int discountPrice = getDiscountPrice();
+        int totalPrice = getPrice();
         if(lockerPass != null){
             totalPrice = lockerPass.addPrice(totalPrice);
         }
 
-        return totalPrice;
+        return totalPrice - discountPrice;
     }
 }
