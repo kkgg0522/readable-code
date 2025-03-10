@@ -21,7 +21,7 @@ public enum DefaultPassDisplayStrategy implements PassDisplayStrategy {
     FIXED(StudyCafePassType.FIXED) {
         @Override
         public String display(StudyCafePass studyCafePass) {
-            return String.format("%d주권(고정석) - %d원", studyCafePass.getDuration(), studyCafePass.getPrice());
+            return String.format("%d주권 - %d원", studyCafePass.getDuration(), studyCafePass.getPrice());
         }
     },
     NOT_MATCH(StudyCafePassType.NOT_MATCH) {

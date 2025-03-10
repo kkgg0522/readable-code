@@ -31,12 +31,14 @@ public class StudyCafePassMachine {
                 outputHandler.askLockerPass(lockerPass);
                 boolean lockerSelection = inputHandler.getLockerSelection();
 
-                if (!lockerSelection) {
-                    lockerPass=null;
+                if (lockerSelection) {
+                    outputHandler.showPassOrderSummary(selectedTicketPass, lockerPass);
+                    return;
                 }
             }
 
-            outputHandler.showPassOrderSummary(selectedTicketPass, lockerPass);
+            outputHandler.showPassOrderSummary(selectedTicketPass);
+
         } catch (AppException e) {
             outputHandler.showSimpleMessage(e.getMessage());
         } catch (Exception e) {
