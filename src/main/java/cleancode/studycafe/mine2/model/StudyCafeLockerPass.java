@@ -1,53 +1,27 @@
 package cleancode.studycafe.mine2.model;
 
-import cleancode.studycafe.mine2.model.vo.Price;
-
 public class StudyCafeLockerPass {
 
-    private final StudyCafePassType passType;
-    private final int duration;
-    private final Price price;
+    private final StudyCafePassInfo passInfo;
 
-    private StudyCafeLockerPass(StudyCafePassType passType, int duration, Price price) {
-        this.passType = passType;
-        this.duration = duration;
-        this.price = price;
+    private StudyCafeLockerPass(StudyCafePassInfo passInfo) {
+        this.passInfo = passInfo;
     }
 
-    public static StudyCafeLockerPass of(StudyCafePassType passType, int duration, Price price) {
-        return new StudyCafeLockerPass(passType, duration, price);
+    public static StudyCafeLockerPass of(StudyCafePassInfo passInfo) {
+        return new StudyCafeLockerPass(passInfo);
     }
 
-    public StudyCafePassType getPassType() {
-        return passType;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public int getPrice() {
-        return price.getPrice();
+    public boolean isDurationAndTypeEqualsTo(StudyCafePassInfo passInfo) {
+        return passInfo.isDurationAndTypeEqualsTo(passInfo);
     }
 
     public String display() {
-        if (passType == StudyCafePassType.HOURLY) {
-            return String.format("%s시간권 - %d원", duration, price);
-        }
-        if (passType == StudyCafePassType.WEEKLY) {
-            return String.format("%s주권 - %d원", duration, price);
-        }
-        if (passType == StudyCafePassType.FIXED) {
-            return String.format("%s주권 - %d원", duration, price);
-        }
-        return "";
+        return passInfo.display();
     }
 
-    public boolean isTypeEqualsTo(StudyCafePassType passType) {
-        return this.passType == passType;
+    public int getTotalPrice(int disCountTotalPrice) {
+        return passInfo.getTotalPrice(disCountTotalPrice);
     }
 
-    public boolean isDurationEqualsTo(int duration) {
-        return this.duration == duration;
-    }
 }

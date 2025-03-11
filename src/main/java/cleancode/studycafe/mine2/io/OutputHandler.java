@@ -51,13 +51,12 @@ public class OutputHandler {
         System.out.println("이용권: " + selectedPass.display());
 
 
-        double discountRate = selectedPass.getDiscountRate();
-        int discountPrice = (int) (selectedPass.getPrice() * discountRate);
+        int discountPrice = selectedPass.getDiscountPrice();
         if (discountPrice > 0) {
             System.out.println("이벤트 할인 금액: " + discountPrice + "원");
         }
 
-        int totalPrice = selectedPass.getPrice() - discountPrice;
+        int totalPrice = selectedPass.getTotalDiscountPrice();
         System.out.println("총 결제 금액: " + totalPrice + "원");
         System.out.println();
     }
@@ -69,13 +68,13 @@ public class OutputHandler {
         System.out.println("사물함: " + lockerPass.display());
 
 
-        double discountRate = selectedPass.getDiscountRate();
-        int discountPrice = (int) (selectedPass.getPrice() * discountRate);
+        int discountPrice = selectedPass.getDiscountPrice();
         if (discountPrice > 0) {
             System.out.println("이벤트 할인 금액: " + discountPrice + "원");
         }
 
-        int totalPrice = selectedPass.getPrice() - discountPrice +  lockerPass.getPrice();
+        int totalDiscountPrice = selectedPass.getTotalDiscountPrice();
+        int totalPrice = lockerPass.getTotalPrice(totalDiscountPrice);
         System.out.println("총 결제 금액: " + totalPrice + "원");
         System.out.println();
     }

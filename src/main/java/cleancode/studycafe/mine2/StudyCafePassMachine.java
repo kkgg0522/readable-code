@@ -65,7 +65,7 @@ public class StudyCafePassMachine {
     }
 
     private StudyCafePass getSelectPassBy(StudyCafePassType studyCafePassType) {
-        StudyCafePasses studyCafePasses = StudyCafePasses.from(studyCafeFileHandler.readStudyCafePasses());
+        StudyCafePasses studyCafePasses = studyCafeFileHandler.readStudyCafePasses();
         StudyCafePasses studyCafePassCondition = studyCafePasses.getStudyCafePassCondition(studyCafePassType);
 
         return validInputFromUser(studyCafePassCondition);
@@ -76,7 +76,7 @@ public class StudyCafePassMachine {
             return Optional.empty();
         }
 
-        StudyCafeLockerPasses lockerPasses = StudyCafeLockerPasses.from(studyCafeFileHandler.readLockerPasses());
+        StudyCafeLockerPasses lockerPasses = studyCafeFileHandler.readLockerPasses();
         Optional<StudyCafeLockerPass> lockerPassCondition = lockerPasses.getLockerPassCondition(selectPass);
 
         lockerPassCondition.flatMap(lockerPass -> {

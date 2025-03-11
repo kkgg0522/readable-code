@@ -1,23 +1,25 @@
 package cleancode.studycafe.mine2.model;
 
-import cleancode.studycafe.mine2.model.ffc.LockerAvailableTypes;
-import cleancode.studycafe.mine2.model.vo.Price;
+
+import java.util.List;
 
 public class StudyCafePassInfo {
     private final StudyCafePassType passType;
     private final int duration;
-    private final Price price;
-    private final LockerAvailableTypes lockerAvailableTypes = new LockerAvailableTypes();
+    private final int price;
+    private final List<StudyCafePassType> lockerAvailableType = List.of(
+            StudyCafePassType.FIXED
+    );
 
 
-    private StudyCafePassInfo(StudyCafePassType passType, int duration, Price price) {
+    private StudyCafePassInfo(StudyCafePassType passType, int duration, int price) {
         this.passType = passType;
         this.duration = duration;
         this.price = price;
     }
 
-    public static StudyCafePassInfo of(StudyCafePassType passType, int duration, Price price){
-
+    public static StudyCafePassInfo of(StudyCafePassType passType, int duration, int price){
+        return new StudyCafePassInfo(passType, duration, price);
     }
 
     public static StudyCafePassInfo from(StudyCafePassInfo studyCafePassInfo){
@@ -32,28 +34,55 @@ public class StudyCafePassInfo {
         return duration;
     }
 
-    private Price getPrice() {
+    public int getPrice() {
         return price;
     }
 
     public String display() {
         if (passType == StudyCafePassType.HOURLY) {
-            return String.format("%s시간권 - %d원", duration, price.getPrice());
+            return String.format("%s시간권 - %d원", duration, price);
         }
         if (passType == StudyCafePassType.WEEKLY) {
-            return String.format("%s주권 - %d원", duration, price.getPrice());
+            return String.format("%s주권 - %d원", duration, price);
         }
         if (passType == StudyCafePassType.FIXED) {
-            return String.format("%s주권 - %d원", duration, price.getPrice());
+            return String.format("%s주권 - %d원", duration, price);
         }
         return "";
     }
 
+
     public boolean isNotAvailableLockerType() {
-        return lockerAvailableTypes.isNotAvailableLockerType(this.passType);
+        return !lockerAvailableType.contains(passType);
     }
 
     public boolean isTypeEquals(StudyCafePassType studyCafePassType) {
         return this.passType == studyCafePassType;
+    }
+
+
+
+    public boolean isDurationAndTypeEqualsTo(StudyCafePassInfo passInfo) {
+        return isTypeEqualsTo(passInfo) && isDurationEqualsTo(passInfo);
+    }
+
+    private boolean isTypeEqualsTo(StudyCafePassInfo passInfo) {
+        return this.passType == passInfo.passType;
+    }
+
+    private boolean isDurationEqualsTo(StudyCafePassInfo passInfo) {
+        return this.duration == passInfo.duration;
+    }
+
+    public int getDiscountPrice(double discountRate) {
+        return (int) (price * discountRate);
+    }
+
+    public int getTotalDiscountPrice(int discountPrice){
+        return price - discountPrice;
+    }
+
+    public int getTotalPrice(int disCountTotalPrice) {
+        return price + disCountTotalPrice;
     }
 }

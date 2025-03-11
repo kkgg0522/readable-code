@@ -19,10 +19,7 @@ public class StudyCafeLockerPasses {
 
     public Optional<StudyCafeLockerPass> getLockerPassCondition(StudyCafePass selectPass){
         return lockerPasses.stream()
-                .filter(lockerPass ->
-                        selectPass.isTypeEqualsTo(lockerPass)
-                                && selectPass.isDurationEqualsTo(lockerPass)
-                )
+                .filter(selectPass::isDurationAndTypeEqualsTo)
                 .findFirst();
 
     }
