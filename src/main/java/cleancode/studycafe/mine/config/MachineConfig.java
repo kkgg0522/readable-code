@@ -1,8 +1,8 @@
-package cleancode.studycafe.mine2.config;
+package cleancode.studycafe.mine.config;
 
-import cleancode.studycafe.mine2.io.InputHandler;
-import cleancode.studycafe.mine2.io.OutputHandler;
-import cleancode.studycafe.mine2.io.StudyCafeFileHandler;
+import cleancode.studycafe.mine.io.InputHandler;
+import cleancode.studycafe.mine.io.OutputHandler;
+import cleancode.studycafe.mine.io.StudyCafeFileHandler;
 
 public class MachineConfig {
     private final InputHandler inputHandler;

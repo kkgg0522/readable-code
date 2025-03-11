@@ -7,31 +7,35 @@ import java.util.Scanner;
 public class InputHandler {
 
     private static final Scanner SCANNER = new Scanner(System.in);
+    public static final String HOURLY_NUMBER = "1";
+    public static final String WEEKLY_NUMBER = "2";
+    public static final String FIXED_NUMBER = "3";
+    public static final String LOCKER_USE_NUMBER = "1";
 
     public StudyCafePassType getPassTypeSelectingUserAction() {
         String userInput = SCANNER.nextLine();
 
-        if ("1".equals(userInput)) {
+        if (HOURLY_NUMBER.equals(userInput)) {
             return StudyCafePassType.HOURLY;
         }
-        if ("2".equals(userInput)) {
+        if (WEEKLY_NUMBER.equals(userInput)) {
             return StudyCafePassType.WEEKLY;
         }
-        if ("3".equals(userInput)) {
+        if (FIXED_NUMBER.equals(userInput)) {
             return StudyCafePassType.FIXED;
         }
 
         return StudyCafePassType.NOT_MATCH;
     }
 
-    public int getSelectPassIndexFromUser() {
+    public int getSelectPass() {
         String userInput = SCANNER.nextLine();
         return Integer.parseInt(userInput) - 1;
     }
 
     public boolean getLockerSelection() {
         String userInput = SCANNER.nextLine();
-        return "1".equals(userInput);
+        return LOCKER_USE_NUMBER.equals(userInput);
     }
 
 }

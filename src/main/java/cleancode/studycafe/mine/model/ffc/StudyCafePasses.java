@@ -1,7 +1,7 @@
-package cleancode.studycafe.mine2.model.ffc;
+package cleancode.studycafe.mine.model.ffc;
 
-import cleancode.studycafe.mine2.model.StudyCafePass;
-import cleancode.studycafe.mine2.model.StudyCafePassType;
+import cleancode.studycafe.mine.model.StudyCafePass;
+import cleancode.studycafe.mine.model.StudyCafePassType;
 
 import java.util.List;
 

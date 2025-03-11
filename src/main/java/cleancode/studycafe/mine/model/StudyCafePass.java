@@ -1,53 +1,52 @@
 package cleancode.studycafe.mine.model;
 
-import cleancode.studycafe.mine.io.DefaultPassDisplayStrategy;
 
-public abstract class StudyCafePass {
-    private final StudyCafePassType passType;
-    private final int duration;
-    private final int price;
+public class StudyCafePass {
+    private final StudyCafePassInfo passInfo;
+    private final double discountRate;
 
-    protected int addPrice(int price) {
-        return this.price + price;
+    private StudyCafePass(StudyCafePassInfo status, double discountRate) {
+        this.passInfo = status;
+        this.discountRate = discountRate;
     }
 
-    protected StudyCafePass(StudyCafePassType passType, int duration, int price) {
-        this.passType = passType;
-        this.duration = duration;
-        this.price = price;
+    public static StudyCafePass of(StudyCafePassInfo passInfo, double discountRate) {
+        return new StudyCafePass(passInfo, discountRate);
     }
 
-    public boolean isEqualsType(StudyCafePassType studyCafePassType) {
-        return this.getPassType() == studyCafePassType;
+    public static StudyCafePass from(StudyCafePass studyCafePass) {
+        return new StudyCafePass(studyCafePass.getPassInfo(), studyCafePass.getDiscountRate());
     }
 
-    private boolean isEqualsDuration(int duration) {
-        return this.duration == duration;
+    private StudyCafePassInfo getPassInfo(){
+        return StudyCafePassInfo.from(this.passInfo);
     }
 
-    public boolean isEqualsPassTypeAndDuration(StudyCafePass studyCafePass) {
-        return isEqualsType(studyCafePass.getPassType()) && isEqualsDuration(studyCafePass.getDuration());
+    public boolean isTypeEquals(StudyCafePassType studyCafePassType) {
+        return passInfo.isTypeEquals(studyCafePassType);
+    }
+
+    public boolean isNotAvailableLockerType() {
+        return passInfo.isNotAvailableLockerType();
+    }
+
+    public boolean isDurationAndTypeEqualsTo(StudyCafeLockerPass lockerPass) {
+        return lockerPass.isDurationAndTypeEqualsTo(passInfo);
     }
 
     public String display() {
-        return DefaultPassDisplayStrategy.getDisplayBypassType(this);
+        return passInfo.display();
     }
 
-    public StudyCafePassType getPassType() {
-        return passType;
+    public int getDiscountPrice() {
+        return passInfo.getDiscountPrice(discountRate);
     }
 
-    public int getDuration() {
-        return duration;
+    public int getTotalDiscountPrice() {
+        return passInfo.getTotalDiscountPrice(getDiscountPrice());
     }
 
-    public int getPrice() {
-        return price;
+    private double getDiscountRate() {
+        return discountRate;
     }
-
-    protected int getDiscountPrice(double discountRate) {
-        int price = getPrice();
-        return (int) (price - (price * (1 - discountRate)));
-    }
-
 }

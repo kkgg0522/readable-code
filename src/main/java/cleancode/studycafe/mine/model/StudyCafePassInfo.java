@@ -1,7 +1,7 @@
-package cleancode.studycafe.mine2.model;
+package cleancode.studycafe.mine.model;
 
 
-import cleancode.studycafe.mine2.io.strategy.DefaultPassDisplayStrategy;
+import cleancode.studycafe.mine.io.strategy.DefaultPassDisplayStrategy;
 
 import java.util.List;
 

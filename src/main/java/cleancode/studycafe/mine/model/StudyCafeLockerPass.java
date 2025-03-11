@@ -1,13 +1,27 @@
 package cleancode.studycafe.mine.model;
 
-public class StudyCafeLockerPass extends StudyCafePass {
+public class StudyCafeLockerPass {
 
-    private StudyCafeLockerPass(StudyCafePassType passType, int duration, int price) {
-        super(passType, duration, price);
+    private final StudyCafePassInfo passInfo;
+
+    private StudyCafeLockerPass(StudyCafePassInfo passInfo) {
+        this.passInfo = passInfo;
     }
 
-    public static StudyCafeLockerPass of(StudyCafePassType passType, int duration, int price) {
-        return new StudyCafeLockerPass(passType, duration, price);
+    public static StudyCafeLockerPass of(StudyCafePassInfo passInfo) {
+        return new StudyCafeLockerPass(passInfo);
+    }
+
+    public boolean isDurationAndTypeEqualsTo(StudyCafePassInfo passInfo) {
+        return this.passInfo.isDurationAndTypeEqualsTo(passInfo);
+    }
+
+    public String display() {
+        return passInfo.display();
+    }
+
+    public int getTotalPrice(int disCountTotalPrice) {
+        return passInfo.getTotalPrice(disCountTotalPrice);
     }
 
 }
