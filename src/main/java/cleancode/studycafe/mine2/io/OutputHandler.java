@@ -2,6 +2,7 @@ package cleancode.studycafe.mine2.io;
 
 import cleancode.studycafe.mine2.model.StudyCafeLockerPass;
 import cleancode.studycafe.mine2.model.StudyCafePass;
+import cleancode.studycafe.mine2.model.ffc.StudyCafeTicketPasses;
 
 import java.util.List;
 
@@ -28,11 +29,11 @@ public class OutputHandler {
         System.out.println("1. 시간 이용권(자유석) | 2. 주단위 이용권(자유석) | 3. 1인 고정석");
     }
 
-    public void showPassListForSelection(List<StudyCafePass> passes) {
+    public void showPassListForSelection(StudyCafeTicketPasses studyCafeTicketPasses) {
         System.out.println();
         System.out.println("이용권 목록");
-        for (int index = 0; index < passes.size(); index++) {
-            StudyCafePass pass = passes.get(index);
+        for (int index = 0; index < studyCafeTicketPasses.size(); index++) {
+            StudyCafePass pass = studyCafeTicketPasses.get(index);
             System.out.println(String.format("%s. ", index + 1) + pass.display());
         }
     }

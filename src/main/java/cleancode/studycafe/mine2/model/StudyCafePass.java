@@ -1,6 +1,6 @@
 package cleancode.studycafe.mine2.model;
 
-import java.util.List;
+import cleancode.studycafe.mine2.model.ffc.LockerAvailableTypes;
 
 public class StudyCafePass {
 
@@ -8,6 +8,7 @@ public class StudyCafePass {
     private final int duration;
     private final int price;
     private final double discountRate;
+    private final LockerAvailableTypes lockerAvailableTypes = new LockerAvailableTypes();
 
     private StudyCafePass(StudyCafePassType passType, int duration, int price, double discountRate) {
         this.passType = passType;
@@ -49,6 +50,19 @@ public class StudyCafePass {
         return "";
     }
 
+    public boolean isNotAvailableLockerType() {
+        return lockerAvailableTypes.isNotAvailableLockerType(this.passType);
+    }
 
+    public boolean isDurationEqualsTo(StudyCafeLockerPass lockerPass) {
+        return lockerPass.isDurationEqualsTo(this.duration);
+    }
 
+    public boolean isTypeEqualsTo(StudyCafeLockerPass lockerPass) {
+        return lockerPass.isTypeEqualsTo(this.passType);
+    }
+
+    public boolean isTypeEquals(StudyCafePassType studyCafePassType) {
+        return this.passType == studyCafePassType;
+    }
 }
