@@ -1,6 +1,8 @@
 package cleancode.studycafe.mine2.model;
 
 
+import cleancode.studycafe.mine2.io.strategy.DefaultPassDisplayStrategy;
+
 import java.util.List;
 
 public class StudyCafePassInfo {
@@ -26,29 +28,10 @@ public class StudyCafePassInfo {
         return new StudyCafePassInfo(studyCafePassInfo.getPassType(),studyCafePassInfo.getDuration(), studyCafePassInfo.getPrice());
     }
 
-    private StudyCafePassType getPassType() {
-        return passType;
-    }
 
-    private int getDuration() {
-        return duration;
-    }
-
-    public int getPrice() {
-        return price;
-    }
 
     public String display() {
-        if (passType == StudyCafePassType.HOURLY) {
-            return String.format("%s시간권 - %d원", duration, price);
-        }
-        if (passType == StudyCafePassType.WEEKLY) {
-            return String.format("%s주권 - %d원", duration, price);
-        }
-        if (passType == StudyCafePassType.FIXED) {
-            return String.format("%s주권 - %d원", duration, price);
-        }
-        return "";
+        return DefaultPassDisplayStrategy.displayByType(this);
     }
 
 
@@ -84,5 +67,17 @@ public class StudyCafePassInfo {
 
     public int getTotalPrice(int disCountTotalPrice) {
         return price + disCountTotalPrice;
+    }
+
+    private StudyCafePassType getPassType() {
+        return passType;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }
