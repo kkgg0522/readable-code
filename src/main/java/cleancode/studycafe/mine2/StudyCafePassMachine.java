@@ -9,7 +9,7 @@ import cleancode.studycafe.mine2.model.StudyCafeLockerPass;
 import cleancode.studycafe.mine2.model.StudyCafePass;
 import cleancode.studycafe.mine2.model.StudyCafePassType;
 import cleancode.studycafe.mine2.model.ffc.StudyCafeLockerPasses;
-import cleancode.studycafe.mine2.model.ffc.StudyCafeTicketPasses;
+import cleancode.studycafe.mine2.model.ffc.StudyCafePasses;
 
 import java.util.Optional;
 
@@ -18,8 +18,6 @@ public class StudyCafePassMachine {
     private final InputHandler inputHandler;
     private final OutputHandler outputHandler;
     private final StudyCafeFileHandler studyCafeFileHandler;
-    private StudyCafeLockerPasses lockerPasses;
-
 
     public StudyCafePassMachine(MachineConfig machineConfig) {
         inputHandler = machineConfig.getInputHandler();
@@ -31,45 +29,55 @@ public class StudyCafePassMachine {
         try {
             outputHandler.showWelcomeMessage();
 
-            StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
+            StudyCafePassType studyCafePassType = getPassTypeSelectingUserAction();
 
             actStudyCafe(studyCafePassType);
 
         } catch (AppException e) {
             outputHandler.showSimpleMessage(e.getMessage());
         } catch (Exception e) {
-            outputHandler.showSimpleMessage("알 수 없는 오류가 발생했습니다.");
+            outputHandler.showNotCatchExceptionMessage();
         }
+    }
+
+    private StudyCafePassType getPassTypeSelectingUserAction() {
+        outputHandler.askPassTypeSelection();
+
+        StudyCafePassType passTypeSelectingUserAction = inputHandler.getPassTypeSelectingUserAction();
+
+        if(passTypeSelectingUserAction != StudyCafePassType.NOT_MATCH){
+            return passTypeSelectingUserAction;
+        }
+
+        outputHandler.showUserInputNotMatch();
+        return getPassTypeSelectingUserAction();
     }
 
     private void actStudyCafe(StudyCafePassType studyCafePassType) {
-        StudyCafePass selectTicketPassBy = getSelectTicketPassBy(studyCafePassType);
+        StudyCafePass selectPassBy = getSelectPassBy(studyCafePassType);
 
-        Optional<StudyCafeLockerPass> studyCafeLockerPassCond = getStudyCafeLockerPassCond(selectTicketPassBy);
+        Optional<StudyCafeLockerPass> studyCafeLockerPassCond = getStudyCafeLockerPassCond(selectPassBy);
 
         studyCafeLockerPassCond.ifPresentOrElse(
-                lockerPass -> outputHandler.showPassOrderSummary(selectTicketPassBy, lockerPass),
-                () -> outputHandler.showPassOrderSummary(selectTicketPassBy)
+                lockerPass -> outputHandler.showPassOrderSummary(selectPassBy, lockerPass),
+                () -> outputHandler.showPassOrderSummary(selectPassBy)
         );
     }
 
-    private StudyCafePass getSelectTicketPassBy(StudyCafePassType studyCafePassType) {
-        StudyCafeTicketPasses studyCafePasses = StudyCafeTicketPasses.from(studyCafeFileHandler.readStudyCafePasses());
-        StudyCafeTicketPasses studyCafeTicketPassCondition = studyCafePasses.getStudyCafeTicketPassCondition(studyCafePassType);
-        outputHandler.showPassListForSelection(studyCafeTicketPassCondition);
+    private StudyCafePass getSelectPassBy(StudyCafePassType studyCafePassType) {
+        StudyCafePasses studyCafePasses = StudyCafePasses.from(studyCafeFileHandler.readStudyCafePasses());
+        StudyCafePasses studyCafePassCondition = studyCafePasses.getStudyCafePassCondition(studyCafePassType);
 
-        //hasIndex로 검사
-        return inputHandler.getSelectPass(studyCafeTicketPassCondition);
+        return validInputFromUser(studyCafePassCondition);
     }
 
-
-    private Optional<StudyCafeLockerPass> getStudyCafeLockerPassCond(StudyCafePass selectTicketPass) {
-        if (selectTicketPass.isNotAvailableLockerType()) {
+    private Optional<StudyCafeLockerPass> getStudyCafeLockerPassCond(StudyCafePass selectPass) {
+        if (selectPass.isNotAvailableLockerType()) {
             return Optional.empty();
         }
-        StudyCafeLockerPasses lockerPasses = StudyCafeLockerPasses.from(studyCafeFileHandler.readLockerPasses());
 
-        Optional<StudyCafeLockerPass> lockerPassCondition = lockerPasses.getLockerPassCondition(selectTicketPass);
+        StudyCafeLockerPasses lockerPasses = StudyCafeLockerPasses.from(studyCafeFileHandler.readLockerPasses());
+        Optional<StudyCafeLockerPass> lockerPassCondition = lockerPasses.getLockerPassCondition(selectPass);
 
         lockerPassCondition.flatMap(lockerPass -> {
             outputHandler.askLockerPass(lockerPass);
@@ -78,5 +86,19 @@ public class StudyCafePassMachine {
 
         return Optional.empty();
     }
+
+    private StudyCafePass validInputFromUser(StudyCafePasses studyCafePasses){
+        outputHandler.showPassListForSelection(studyCafePasses);
+        int selectIndex = inputHandler.getSelectPass();
+
+        if(studyCafePasses.hasIndex(selectIndex))
+            return studyCafePasses.get(selectIndex);
+
+        outputHandler.showUserInputNotMatch();
+        return validInputFromUser(studyCafePasses);
+    }
+
+
+
 
 }

@@ -17,19 +17,30 @@ public class StudyCafePass {
         this.discountRate = discountRate;
     }
 
+    private StudyCafePass(StudyCafePass studyCafePass) {
+        this.passType = studyCafePass.getPassType();
+        this.duration = studyCafePass.getDuration();
+        this.price = studyCafePass.getPrice();
+        this.discountRate = studyCafePass.getDiscountRate();
+    }
+
     public static StudyCafePass of(StudyCafePassType passType, int duration, int price, double discountRate) {
         return new StudyCafePass(passType, duration, price, discountRate);
     }
 
-    public StudyCafePassType getPassType() {
+    public static StudyCafePass from(StudyCafePass studyCafePass) {
+        return new StudyCafePass(studyCafePass);
+    }
+
+    private StudyCafePassType getPassType() {
         return passType;
     }
 
-    public int getDuration() {
+    private int getDuration() {
         return duration;
     }
 
-    public int getPrice() {
+    private int getPrice() {
         return price;
     }
 

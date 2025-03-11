@@ -17,11 +17,11 @@ public class StudyCafeLockerPasses {
         return new StudyCafeLockerPasses(lockerPasses);
     }
 
-    public Optional<StudyCafeLockerPass> getLockerPassCondition(StudyCafePass selectTicketPass){
+    public Optional<StudyCafeLockerPass> getLockerPassCondition(StudyCafePass selectPass){
         return lockerPasses.stream()
                 .filter(lockerPass ->
-                        selectTicketPass.isTypeEqualsTo(lockerPass)
-                                && selectTicketPass.isDurationEqualsTo(lockerPass)
+                        selectPass.isTypeEqualsTo(lockerPass)
+                                && selectPass.isDurationEqualsTo(lockerPass)
                 )
                 .findFirst();
 

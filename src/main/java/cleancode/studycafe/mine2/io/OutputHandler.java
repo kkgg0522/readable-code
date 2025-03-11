@@ -2,16 +2,13 @@ package cleancode.studycafe.mine2.io;
 
 import cleancode.studycafe.mine2.model.StudyCafeLockerPass;
 import cleancode.studycafe.mine2.model.StudyCafePass;
-import cleancode.studycafe.mine2.model.ffc.StudyCafeTicketPasses;
-
-import java.util.List;
+import cleancode.studycafe.mine2.model.ffc.StudyCafePasses;
 
 public class OutputHandler {
 
     public void showWelcomeMessage(){
         showWelcomeTitle();
         showAnnouncement();
-        askPassTypeSelection();
     }
 
     public void showWelcomeTitle() {
@@ -29,11 +26,11 @@ public class OutputHandler {
         System.out.println("1. 시간 이용권(자유석) | 2. 주단위 이용권(자유석) | 3. 1인 고정석");
     }
 
-    public void showPassListForSelection(StudyCafeTicketPasses studyCafeTicketPasses) {
+    public void showPassListForSelection(StudyCafePasses studyCafePasses) {
         System.out.println();
         System.out.println("이용권 목록");
-        for (int index = 0; index < studyCafeTicketPasses.size(); index++) {
-            StudyCafePass pass = studyCafeTicketPasses.get(index);
+        for (int index = 0; index < studyCafePasses.size(); index++) {
+            StudyCafePass pass = studyCafePasses.get(index);
             System.out.println(String.format("%s. ", index + 1) + pass.display());
         }
     }
@@ -87,4 +84,11 @@ public class OutputHandler {
         System.out.println(message);
     }
 
+    public void showUserInputNotMatch() {
+        System.out.println("잘못된 입력입니다. 다시 시도해주세요");
+    }
+
+    public void showNotCatchExceptionMessage() {
+        System.out.println("알 수 없는 오류가 발생했습니다.");
+    }
 }

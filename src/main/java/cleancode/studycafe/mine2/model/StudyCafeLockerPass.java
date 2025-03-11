@@ -1,18 +1,20 @@
 package cleancode.studycafe.mine2.model;
 
+import cleancode.studycafe.mine2.model.vo.Price;
+
 public class StudyCafeLockerPass {
 
     private final StudyCafePassType passType;
     private final int duration;
-    private final int price;
+    private final Price price;
 
-    private StudyCafeLockerPass(StudyCafePassType passType, int duration, int price) {
+    private StudyCafeLockerPass(StudyCafePassType passType, int duration, Price price) {
         this.passType = passType;
         this.duration = duration;
         this.price = price;
     }
 
-    public static StudyCafeLockerPass of(StudyCafePassType passType, int duration, int price) {
+    public static StudyCafeLockerPass of(StudyCafePassType passType, int duration, Price price) {
         return new StudyCafeLockerPass(passType, duration, price);
     }
 
@@ -25,7 +27,7 @@ public class StudyCafeLockerPass {
     }
 
     public int getPrice() {
-        return price;
+        return price.getPrice();
     }
 
     public String display() {

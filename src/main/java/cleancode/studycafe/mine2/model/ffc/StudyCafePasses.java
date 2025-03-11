@@ -5,18 +5,18 @@ import cleancode.studycafe.mine2.model.StudyCafePassType;
 
 import java.util.List;
 
-public class StudyCafeTicketPasses {
+public class StudyCafePasses {
     private final List<StudyCafePass> studyCafePasses;
 
-    private StudyCafeTicketPasses(List<StudyCafePass> studyCafeTicketPass) {
-        this.studyCafePasses = studyCafeTicketPass;
+    private StudyCafePasses(List<StudyCafePass> studyCafePass) {
+        this.studyCafePasses = studyCafePass;
     }
 
-    public static StudyCafeTicketPasses from(List<StudyCafePass> studyCafeTicketPass){
-        return new StudyCafeTicketPasses(studyCafeTicketPass);
+    public static StudyCafePasses from(List<StudyCafePass> studyCafePass){
+        return new StudyCafePasses(studyCafePass);
     }
 
-    public StudyCafeTicketPasses getStudyCafeTicketPassCondition(StudyCafePassType studyCafePassType){
+    public StudyCafePasses getStudyCafePassCondition(StudyCafePassType studyCafePassType){
         return from(studyCafePasses.stream()
                 .filter(studyCafePass -> studyCafePass.isTypeEquals(studyCafePassType))
                 .toList());
@@ -27,6 +27,10 @@ public class StudyCafeTicketPasses {
     }
 
     public StudyCafePass get(int index) {
-        return studyCafePasses.get(index);
+        return StudyCafePass.from(studyCafePasses.get(index));
+    }
+
+    public boolean hasIndex(int selectIndex) {
+        return size() > selectIndex;
     }
 }
