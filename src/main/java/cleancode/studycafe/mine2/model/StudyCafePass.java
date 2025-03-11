@@ -1,5 +1,7 @@
 package cleancode.studycafe.mine2.model;
 
+import java.util.List;
+
 public class StudyCafePass {
 
     private final StudyCafePassType passType;
@@ -46,5 +48,7 @@ public class StudyCafePass {
         }
         return "";
     }
+
+
 
 }
