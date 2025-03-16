@@ -1,6 +1,6 @@
 package cleancode.studycafe.tobetest;
 
-import cleancode.studycafe.tobe.model.pass.seat.StudyCafeSeatPasses;
+import cleancode.studycafe.tobetest.model.pass.seat.StudyCafeSeatPasses;
 import cleancode.studycafe.tobetest.exception.AppException;
 import cleancode.studycafe.tobetest.io.StudyCafeIOHandler;
 import cleancode.studycafe.tobetest.model.order.StudyCafePassOrder;

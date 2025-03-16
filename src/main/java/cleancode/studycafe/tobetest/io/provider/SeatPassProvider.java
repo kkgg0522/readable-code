@@ -1,6 +1,6 @@
 package cleancode.studycafe.tobetest.io.provider;
 
-import cleancode.studycafe.tobe.model.pass.seat.StudyCafeSeatPasses;
+import cleancode.studycafe.tobetest.model.pass.seat.StudyCafeSeatPasses;
 import cleancode.studycafe.tobetest.model.pass.StudyCafePassType;
 import cleancode.studycafe.tobetest.model.pass.seat.StudyCafeSeatPass;
 
