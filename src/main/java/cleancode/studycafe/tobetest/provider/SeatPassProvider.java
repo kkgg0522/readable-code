@@ -4,4 +4,6 @@ import cleancode.studycafe.tobetest.model.pass.seat.StudyCafeSeatPasses;
 
 public interface SeatPassProvider {
     StudyCafeSeatPasses getSeatPasses();
+
+    StudyCafeSeatPasses getSeatPasses(String path);
 }

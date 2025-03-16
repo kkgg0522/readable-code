@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeatPassProvider implements cleancode.studycafe.tobe.provider.SeatPassProvider {
+public class SeatPassFileReader implements cleancode.studycafe.tobe.provider.SeatPassProvider {
 
     public static final String LOCKER_LIST_CSV_PATH = "src/main/resources/cleancode/studycafe/pass-list.csv";
 

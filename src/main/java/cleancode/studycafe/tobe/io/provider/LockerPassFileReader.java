@@ -1,8 +1,8 @@
-package cleancode.studycafe.tobetest.io.provider;
+package cleancode.studycafe.tobe.io.provider;
 
-import cleancode.studycafe.tobetest.model.pass.StudyCafePassType;
-import cleancode.studycafe.tobetest.model.pass.locker.StudyCafeLockerPass;
-import cleancode.studycafe.tobetest.model.pass.locker.StudyCafeLockerPasses;
+import cleancode.studycafe.tobe.model.pass.StudyCafePassType;
+import cleancode.studycafe.tobe.model.pass.locker.StudyCafeLockerPass;
+import cleancode.studycafe.tobe.model.pass.locker.StudyCafeLockerPasses;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LockerPassProvider implements cleancode.studycafe.tobetest.provider.LockerPassProvider {
+public class LockerPassFileReader implements cleancode.studycafe.tobe.provider.LockerPassProvider {
 
     public static final String PASS_LIST_CSV_PATH = "src/main/resources/cleancode/studycafe/locker.csv";
 

@@ -23,4 +23,25 @@ public class StudyCafeLockerPasses {
                 )
                 .findFirst();
     }
+
+    public boolean isSamePasses(StudyCafeLockerPasses lockerPassesByPath) {
+        boolean isSameSign = true;
+        if (this.lockerPasses.size() != lockerPassesByPath.lockerPasses.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < this.lockerPasses.size(); i++) {
+            StudyCafeLockerPass studyCafeLockerPass1 = this.lockerPasses.get(i);
+            StudyCafeLockerPass studyCafeLockerPass2 = lockerPassesByPath.lockerPasses.get(i);
+
+            if (studyCafeLockerPass1.isNotSame(studyCafeLockerPass2)) {
+                isSameSign = false;
+                break;
+            }
+        }
+
+
+        return isSameSign;
+
+    }
 }
