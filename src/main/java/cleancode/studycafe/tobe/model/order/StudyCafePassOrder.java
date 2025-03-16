@@ -32,7 +32,7 @@ public class StudyCafePassOrder {
     }
 
     public int getTotalPrice() {
-        return getDiscountPrice() + (lockerPass != null ? lockerPass.getPrice() : 0);
+        return seatPass.getPrice() - getDiscountPrice() + (lockerPass != null ? lockerPass.getPrice() : 0);
 
     }
 }
