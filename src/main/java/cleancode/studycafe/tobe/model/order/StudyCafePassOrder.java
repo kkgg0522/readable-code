@@ -20,7 +20,7 @@ public class StudyCafePassOrder {
     }
 
     public Optional<StudyCafeLockerPass> getLockerPass() {
-        return Optional.of(lockerPass);
+        return Optional.ofNullable(lockerPass);
     }
 
     public StudyCafeSeatPass getSeatPass() {

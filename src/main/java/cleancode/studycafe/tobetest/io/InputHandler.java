@@ -37,4 +37,27 @@ public class InputHandler {
         return "1".equals(userInput);
     }
 
+
+    //테스트용으로 String을 매개변수로 받는 메서드 생성
+    public StudyCafePassType getPassTypeSelectingUserAction(String userInput) {
+        if ("1".equals(userInput)) {
+            return StudyCafePassType.HOURLY;
+        }
+        if ("2".equals(userInput)) {
+            return StudyCafePassType.WEEKLY;
+        }
+        if ("3".equals(userInput)) {
+            return StudyCafePassType.FIXED;
+        }
+        throw new AppException("잘못된 입력입니다.");
+    }
+
+    public StudyCafeSeatPass getSelectPass(List<StudyCafeSeatPass> passes, String userInput) {
+        int selectedIndex = Integer.parseInt(userInput) - 1;
+        return passes.get(selectedIndex);
+    }
+
+    public boolean getLockerSelection(String userInput) {
+        return "1".equals(userInput);
+    }
 }
